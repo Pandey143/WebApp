@@ -3,9 +3,13 @@ package com.vimal.campussathi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -19,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         website=(WebView)findViewById(R.id.webview_CampusSathi);
+        if(!isNetworkConnected()){
+            startActivity(new Intent(
+                    Settings.ACTION_WIFI_SETTINGS));
+        }
         website.setInitialScale(0);
         WebSettings webSettings=website.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -54,5 +62,10 @@ public class MainActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 }
