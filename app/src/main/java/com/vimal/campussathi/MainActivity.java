@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
         website.loadUrl("http://campussathi.in/");
         website.setWebViewClient(new WebViewClient());
         website.setDownloadListener(new DownloadListener() {
-            public void onDownloadStart(String url, String userAgent,
+            public void onDownloadStart(String sitelink, String userAgent,
                                         String contentDisposition, String mimetype,
                                         long contentLength) {
                 DownloadManager.Request request = new DownloadManager.Request(
-                        Uri.parse(url));
+                        Uri.parse(sitelink));
                 request.allowScanningByMediaScanner();
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "download");
